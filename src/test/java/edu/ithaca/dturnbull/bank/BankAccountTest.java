@@ -28,6 +28,9 @@ class BankAccountTest {
         assertFalse( BankAccount.isEmailValid(""));         // empty string
         assertFalse(BankAccount.isEmailValid("gmail.com@")); //domain before @ symbol
         assertFalse(BankAccount.isEmailValid("@johndoe"));  // prefix after @ symbol
+        assertFalse(BankAccount.isEmailValid("johndoegmail.com")); // missing @ symbol
+        assertFalse(BankAccount.isEmailValid("john@.com"));      // missing domain name
+        assertFalse(BankAccount.isEmailValid("john@gmailcom"));   // missing dot in domain name
 
         
     }
