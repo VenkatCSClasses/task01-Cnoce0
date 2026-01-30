@@ -40,11 +40,32 @@ public class BankAccount {
 
 
     public static boolean isEmailValid(String email){
+        // Check if email contains '@'
         if (email.indexOf('@') == -1){
             return false;
         }
-        else {
-            return true;
+
+        // Check if email contains at least one '.' after '@'
+        int atIndex = email.indexOf('@');
+        if (email.indexOf('.', atIndex) == -1){
+            return false;
         }
+
+        // Check if email starts or ends with '.'
+        if (email.startsWith(".") || email.endsWith(".")){
+            return false;
+        }
+
+        // Check if email contains consecutive dots
+        if (email.contains("..")){
+            return false;
+        }
+
+        // Check if '@' is not the first or last character
+        if (atIndex == 0 || atIndex == email.length() - 1){
+            return false;
+        }
+
+        return true;
     }
 }
