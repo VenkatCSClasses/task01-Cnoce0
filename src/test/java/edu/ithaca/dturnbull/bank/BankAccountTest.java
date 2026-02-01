@@ -13,6 +13,55 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
     }
 
+    /* Equivalence classes for getBalance():
+       - initial positive balance
+       - initial zero balance
+       - after valid withdrawal (balance decreased accordingly)
+       - after failed withdrawal (balance unchanged)
+       - fractional amounts / precision
+       - after multiple operations (sequence)
+    */
+
+    @Test
+    void getBalanceInitialZeroTest() {
+        // EC: initial balance is zero
+        BankAccount bankAccount = new BankAccount("a@b.com", 0);
+        assertEquals(0, bankAccount.getBalance(), 0.001);
+    }
+
+    @Test
+    void getBalanceAfterValidWithdrawTest() throws InsufficientFundsException {
+        // EC: valid withdrawal reduces balance
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        bankAccount.withdraw(50);
+        assertEquals(150, bankAccount.getBalance(), 0.001);
+    }
+
+    @Test
+    void getBalanceAfterFailedWithdrawTest() {
+        // EC: failed withdraw (overdraw) leaves balance unchanged
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
+        assertEquals(200, bankAccount.getBalance(), 0.001);
+    }
+
+    @Test
+    void getBalancePrecisionTest() throws InsufficientFundsException {
+        // EC: precision with fractional amounts
+        BankAccount bankAccount = new BankAccount("a@b.com", 100.125);
+        bankAccount.withdraw(0.125);
+        assertEquals(100.0, bankAccount.getBalance(), 0.001);
+    }
+
+    @Test
+    void getBalanceAfterMultipleWithdrawsTest() throws InsufficientFundsException {
+        // EC: sequence of operations
+        BankAccount bankAccount = new BankAccount("a@b.com", 500);
+        bankAccount.withdraw(100);
+        bankAccount.withdraw(50);
+        assertEquals(350, bankAccount.getBalance(), 0.001);
+    }
+
     /* Equivalence classes for withdraw(amount):
        - amount < 0 : negative input (should not change balance)
        - amount == 0 : zero (balance unchanged)
