@@ -132,6 +132,15 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
     }
 
+    @Test 
+    void isAmountValidTest(){
+        assertTrue(BankAccount.isAmountValid(100)); // valid amount equivalence class showing integer will work and is boolean test
+        assertTrue(BankAccount.isAmountValid(0)); // zero amount showing boundary case of valid amount which is boolean test
+        assertTrue(BankAccount.isAmountValid(99.99)); // valid amount with two decimal places showing a middle boundary case where we just check a double which is a boolean test
+        assertTrue(BankAccount.isAmountValid(10.1)); // valid amount with one decimal place showing another boundary of a value with one decimal 
+        assertFalse(BankAccount.isAmountValid(-50)); // negative amount showing invalid equivalence class for negative values
+        assertFalse(BankAccount.isAmountValid(100.999)); // more than two decimal places showing invalid equivalence class for values with more than two decimal places
+    }
     
 
     

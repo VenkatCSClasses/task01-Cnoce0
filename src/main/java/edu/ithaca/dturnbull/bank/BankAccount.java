@@ -67,7 +67,19 @@ public class BankAccount {
         if (atIndex == 0 || atIndex == email.length() - 1){
             return false;
         }
+         
+        if (email.contains("@.") || email.contains(".@")){
+            return false;
+        }
 
         return true;
+    }
+
+    /**
+     * @post Will take a positive amount with two decimals places or less and return false if the amount is invalid.
+     */
+
+    public static boolean isAmountValid(double amount){
+        return false;
     }
 }
