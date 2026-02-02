@@ -32,6 +32,10 @@ public class BankAccount {
      * If the amount is negative the balance is not changed and will return nothing.
      */
     public void withdraw (double amount) throws InsufficientFundsException{
+
+        if(amount < 0){
+            return;
+        }
         if (amount <= balance){
             balance -= amount;
         }
@@ -80,6 +84,20 @@ public class BankAccount {
      */
 
     public static boolean isAmountValid(double amount){
-        return false;
+        if (amount < 0){
+            return false;
+        }
+        String amountString = Double.toString(amount);
+        int indexOfDecimal = amountString.indexOf('.');
+        if (indexOfDecimal != -1){
+            int decimalPlaces = amountString.length() - indexOfDecimal - 1;
+            if (decimalPlaces > 2){
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        return true;
     }
 }
