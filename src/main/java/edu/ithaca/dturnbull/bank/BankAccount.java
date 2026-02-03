@@ -115,7 +115,11 @@ public class BankAccount {
      */
 
     public void deposit(double amount) throws IllegalArgumentException{
-        
+        if (isAmountValid(amount)){
+            balance += amount;
+        }else{
+            throw new IllegalArgumentException("Amount is invalid");
+        }
     }
 
 
@@ -125,7 +129,14 @@ public class BankAccount {
      * @throws IllegalArgumentException if amount is negative or has more than two decimal places
      */ 
     public void transfer(BankAccount other, double amount) throws InsufficientFundsException, IllegalArgumentException{
-    
+        if (!isAmountValid(amount)){
+            throw new IllegalArgumentException("Amount is invalid");
+        }
+        if (amount > balance){
+            throw new InsufficientFundsException("Not enough money to transfer");
+        }
+        this.withdraw(amount);
+        other.deposit(amount);
     }
 
 }
