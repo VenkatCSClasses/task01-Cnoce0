@@ -108,4 +108,24 @@ public class BankAccount {
         }
         return true;
     }
+
+    /**
+     * @post Will add the amount to the balance if the amount is valid.
+     * @throws IllegalArgumentException if amount is negative or has more than two decimal places
+     */
+
+    public void deposit(double amount) throws IllegalArgumentException{
+        
+    }
+
+
+    /**
+     * @post will transfer amount from this account to the other account if amount is valid and this account has sufficient funds.
+     * @throws InsufficientFundsException if amount is greater than balance
+     * @throws IllegalArgumentException if amount is negative or has more than two decimal places
+     */ 
+    public void transfer(BankAccount other, double amount) throws InsufficientFundsException, IllegalArgumentException{
+    
+    }
+
 }
