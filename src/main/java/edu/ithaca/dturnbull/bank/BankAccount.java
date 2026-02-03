@@ -81,18 +81,19 @@ public class BankAccount {
 
     /**
      * @post Will take a positive amount with two decimals places or less and return false if the amount is invalid.
+     * @throws IllegalArgumentException if amount is negative or has more than two decimal places
      */
 
-    public static boolean isAmountValid(double amount){
+    public static boolean isAmountValid(double amount) throws IllegalArgumentException{
         if (amount < 0){
-            return false;
+            throw new IllegalArgumentException("Amount must be a positive number");
         }
         String amountString = Double.toString(amount);
         int indexOfDecimal = amountString.indexOf('.');
         if (indexOfDecimal != -1){
             int decimalPlaces = amountString.length() - indexOfDecimal - 1;
             if (decimalPlaces > 2){
-                return false;
+                throw new IllegalArgumentException("Amount cannot have more than two decimal places");
             }
             else {
                 return true;

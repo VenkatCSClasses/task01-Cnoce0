@@ -77,6 +77,8 @@ class BankAccountTest {
 
         assertEquals(100, bankAccount.getBalance(), 0.001);
         assertThrows(InsufficientFundsException.class, () -> bankAccount.withdraw(300));
+        assertThrows(IllegalArgumentException.class,()-> bankAccount.withdraw(-20));
+        assertThrows(IllegalArgumentException.class,()-> bankAccount.withdraw(10.999));
     }
 
     @Test
@@ -128,8 +130,11 @@ class BankAccountTest {
 
         assertEquals("a@b.com", bankAccount.getEmail());
         assertEquals(200, bankAccount.getBalance(), 0.001);
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(-50)); //check for exception thrown correctly
+        assertThrows(IllegalArgumentException.class, ()-> bankAccount.withdraw(10.999)); //check for exception thrown correctly
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+        
     }
 
     @Test 
@@ -138,8 +143,8 @@ class BankAccountTest {
         assertTrue(BankAccount.isAmountValid(0)); // zero amount showing boundary case of valid amount which is boolean test
         assertTrue(BankAccount.isAmountValid(99.99)); // valid amount with two decimal places showing a middle boundary case where we just check a double which is a boolean test
         assertTrue(BankAccount.isAmountValid(10.1)); // valid amount with one decimal place showing another boundary of a value with one decimal 
-        assertFalse(BankAccount.isAmountValid(-50)); // negative amount showing invalid equivalence class for negative values
-        assertFalse(BankAccount.isAmountValid(100.999)); // more than two decimal places showing invalid equivalence class for values with more than two decimal places
+        assertThrows(IllegalArgumentException.class, ()-> BankAccount.isAmountValid(-50)); // negative amount showing invalid equivalence class for negative values
+        assertThrows(IllegalArgumentException.class, ()-> BankAccount.isAmountValid(100.999)); // more than two decimal places showing invalid equivalence class for values with more than two decimal places
     }
     
 
