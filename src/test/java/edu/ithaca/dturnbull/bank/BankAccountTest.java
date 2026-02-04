@@ -145,6 +145,7 @@ class BankAccountTest {
         assertTrue(BankAccount.isAmountValid(10.1)); // valid amount with one decimal place showing another boundary of a value with one decimal 
         assertThrows(IllegalArgumentException.class, ()-> BankAccount.isAmountValid(-50)); // negative amount showing invalid equivalence class for negative values
         assertThrows(IllegalArgumentException.class, ()-> BankAccount.isAmountValid(100.999)); // more than two decimal places showing invalid equivalence class for values with more than two decimal places
+        assertThrows(IllegalArgumentException.class, ()-> BankAccount.isAmountValid(10.010)); // too many decimal places.
     }
     
 
